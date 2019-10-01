@@ -1,0 +1,97 @@
+# Notes:
+
+Tabs {
+  :tabedit fileName
+  :gt, gT, 2gt, tabfirst, tabn, tabp, tabs
+  :tabonly, tabclose
+}
+
+Splits {
+  :split filename  - split window horizontally and load filename
+  :vsplit file     - vertical split and open file
+  ctrl-w up arrow  - move cursor up a window
+  ctrl-w ctrl-w    - move cursor to another window (cycle)
+  ctrl-w _         - maximize current window vertically
+  ctrl-w |         - maximize current window horizontally
+  ctrl-w =         - make all equal size
+  :sview file      - same as split, but readonly
+  :close           - close current window
+
+  CTRL-W [N] -	Decrease current window height by N (default 1)
+  CTRL-W [N] +	Increase current window height by N (default 1)
+  CTRL-W [N] <	Decrease current window width by N (default 1)
+  CTRL-W [N} >	Increase current window width by N (default 1)
+}
+
+Marks {
+  ma, mA (global mark)
+  :marks
+}
+
+Sessions {
+  :mksession, :mks! to resave
+}
+
+Copy Past {
+  :32,54y - or mark (mk) move (y'k)
+}
+
+Finding things {
+  ; - denite menu for open files. <ctrl>o to browse menu
+  <leader>t - fuzzy search files in cur dir (ignores .gitignore)
+  <leader>g & j - search project for term
+  % - find matching bracket
+  * - find name under cursur
+}
+
+Line Numbers {
+  :set relativenumber or :set rnu
+  :set norelativenumber or :set nornu
+  :set nu!
+}
+
+Folding things {
+  :5,14fo
+}
+
+Moving {
+  numG	Move the cursor line num
+  H	Move the cursor to the top of the screen.
+  M	Move the cursor to the middle of the screen.
+  L	Move the cursor to the bottom of the screen.
+}
+
+Indention {
+  =i{ to indent a bracket of code
+  visual mode <shift>->
+}
+
+Buffers {
+  :bdel - delete buffer
+}
+
+Remote editing {
+  vim scp://remoteuser@remote_IP_or_hostname/relative/path/of/file
+}
+
+Notes {
+  Writing code in vim
+  vim is an excellent editor for source code because it has many features that are specifically designed to help programmers. Here are a few of the more handy ones:
+
+  ]p	Just like p, but it automatically adjusts the indent level of the pasted code to match that of the code you paste into. Try it!
+  %	Putting the cursor on a brace, bracket, or parenthese and pressing % will send the cursor to the matching brace, bracket, or parenthese. Great for fixing parse problems related to heavily nested blocks of code or logic.
+  >>	Indent the highlighted code. (See the earlier section about efficient text selection. If no text is selected, the current line is indented.)
+  <<	Like >>, but un-indents.
+  gd	Go to the definition (or declaration) of the function or variable under the cursor.
+  K	Go to the man page for the word currently under the cursor. (For instance, if your cursor is currently over the word sleep, you will see the man page for sleep displayed.)
+}
+
+References {
+  http://www.openvim.com/tutorial.html
+  https://linuxconfig.org/vim-tutorial
+  ftp://ftp.vim.org/pub/vim/doc/book/vimbook-OPL.pdf
+  http://vim.wikia.com/wiki/Tutorial
+  http://www.viemu.com/a-why-vi-vim.html
+  http://robertames.com/files/vim-editing.html
+  telnet towel.blinkenlights.nl
+}

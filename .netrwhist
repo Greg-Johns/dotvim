@@ -1,4 +1,3 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='/Users/gregjohns/.vim'
-let g:netrw_dirhist_2='/Users/gregjohns/.vim/.git'
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/Users/foo/.config/nvim'
