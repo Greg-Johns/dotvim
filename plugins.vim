@@ -84,7 +84,7 @@ Plug 'editorconfig/editorconfig-vim'
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
 " Git {{{
-  " Enable git changes to be shown in sign column
+  " Enable git changes to be shown in side column
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
@@ -93,7 +93,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 " Web {{{
    Plug 'HerringtonDarkholme/yats.vim'          " Typescript syntax highlighting
    Plug 'mxw/vim-jsx'                           " ReactJS JSX syntax highlighting
-   Plug 'heavenshell/vim-jsdoc'                  " Generate JSDoc commands based on function signature
+   Plug 'heavenshell/vim-jsdoc'                 " Generate JSDoc commands based on function signature
    Plug 'elzr/vim-json'
    Plug 'vim-syntastic/syntastic'
    Plug 'othree/html5.vim'

@@ -367,7 +367,7 @@ let g:signify_sign_delete = '-'
       " let g:airline_theme = 'one'
       " Vim airline theme
       " let g:airline_theme='bubblegum'
-      let g:airline_theme='understated'
+      " let g:airline_theme='understated'
 
       " Add custom highlights in method that is executed every time a
       " colorscheme is sourced
