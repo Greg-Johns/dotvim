@@ -1,5 +1,6 @@
 scriptencoding utf-8
 source ~/.config/nvim/plugins.vim
+" source ~/.config/nvim/setcolors.vim
 
 " ============================================================================ "
 " ===                           EDITING OPTIONS                            === "
@@ -25,7 +26,7 @@ source ~/.config/nvim/plugins.vim
   set expandtab               " Insert spaces when TAB is pressed.
   set softtabstop=2           " Change number of spaces that a <Tab> counts for during editing ops
   set shiftwidth=2            " Indentation amount for < and > commands.
-  set nowrap                  " do not wrap long lines by default
+  " set nowrap                  " do not wrap long lines by default
   set nocursorline            " Don't highlight current cursor line
   " Disable line/column number in status line
   " Shows up in preview window when airline is disabled if not
@@ -119,7 +120,7 @@ source ~/.config/nvim/plugins.vim
   endtry
 " }}}
 
-" === Signify === "
+" === http://localhost:3000/Signify === "
 let g:signify_sign_delete = '-'
 
 " Snippets {{{
@@ -223,22 +224,22 @@ let g:signify_sign_delete = '-'
     endfor
   endif
 
-  " if executable('ocaml-language-server')
-  "   let s:ocaml_lsp=[exepath('ocaml-language-server')]
-  "   let g:LanguageClient_serverCommands['reason']=s:ocaml_lsp
-  "   let g:LanguageClient_serverCommands['ocaml']=s:ocaml_lsp
-  " endif
+  if executable('ocaml-language-server')
+    let s:ocaml_lsp=[exepath('ocaml-language-server')]
+    let g:LanguageClient_serverCommands['reason']=s:ocaml_lsp
+    let g:LanguageClient_serverCommands['ocaml']=s:ocaml_lsp
+  endif
 
-  " let g:LanguageClient_serverCommands = {
-  "   \ 'reason': ['/Users/foo/Projects/Reason/rls-macros/reason-language-server'],
-  "   \ }
-  " let g:LanguageClient_serverCommands = {
-  "   \ 'reason': ['/Users/foo/Projects/Reason/rls-macros/reason-language-server'],
-  "   \ 'javascript': ['/User/foo/Projects/javascript-typescript-stdio'],
-  "   \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-  "   \ 'typescript': ['tcp://127.0.0.1:2089'],
-  "   \ 'typescript.tsx': ['tcp://127.0.0.1:2089']
-  "   \ }
+  let g:LanguageClient_serverCommands = {
+    \ 'reason': ['/Users/foo/Projects/Reason/rls-macros/reason-language-server'],
+    \ }
+  let g:LanguageClient_serverCommands = {
+    \ 'reason': ['/Users/foo/Projects/Reason/rls-macros/reason-language-server'],
+    \ 'javascript': ['/User/foo/Projects/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'typescript': ['tcp://127.0.0.1:2089'],
+    \ 'typescript.tsx': ['tcp://127.0.0.1:2089']
+    \ }
   let g:deoplete#ernable_at_startup = 1
   nnoremap <silent> gd :call LanguageClient#textDocument_definition()<cr>
   nnoremap <silent> gf :call LanguageClient#textDocument_formatting()<cr>
@@ -359,13 +360,11 @@ let g:signify_sign_delete = '-'
       set termguicolors
 
       " Editor theme
+      let g:one_allow_italics = 1
+      colorscheme one
       set background=dark
-      try
-        colorscheme OceanicNext
-      catch
-        colorscheme slate
-      endtry
 
+      " let g:airline_theme = 'one'
       " Vim airline theme
       " let g:airline_theme='bubblegum'
       let g:airline_theme='understated'
@@ -538,7 +537,7 @@ nmap <leader>s :StripWhitespace<CR>
 "   <leader>h - Find and replace
 map <leader>h :%s///<left><left>
 " <space><space> to de-highlight serch string
-nmap <silent> <leader><leader> :nohlsearch<CR>
+nnoremap <silent> <C-l> :nohl<CR><C-l>
 
 " === Easy-motion shortcuts ==="
 "   <leader>w - Easy-motion highlights first word letters bi-directionally
@@ -549,25 +548,50 @@ cmap w!! w !sudo tee %
 
 " === vim-jsdoc shortcuts ==="
 " Generate jsdoc for function under cursor
-nmap <leader>z :JsDoc<CR>
+nmap <leader>d :JsDoc<CR>
 
 " Delete current visual selection and dump in black hole buffer before pasting
 " Used when you want to paste over something without it getting copied to
 " Vim's default buffer
+set foldnestmax=10
 vnoremap <leader>p "_dP
 
 " Folding {{{
-  set foldenable          " enable folding
-  set foldlevelstart=0	" open w folds closed
-  set foldnestmax=10
+set foldenable          " enable folding
+set foldlevelstart=1	" open w folds open
 
   " space z to open/close folds
   nnoremap <leader>z za
   set foldmethod=indent
-
+" }}}
+" move visual block{{{
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+" }}}
+" Wiki {{{
+  let g:vimwiki_list = [{'path': '$HOME/Dropbox/wiki/wklog',
+                         \ 'syntax': 'markdown', 'ext': '.md'},
+                         \ {'path': '$HOME/Dropbox/wiki/caplog',
+                         \ 'syntax': 'markdown', 'ext': '.md'}]
   let g:vimwiki_folding='list'
 " }}}
 
+" Markdown {{{
+  let g:markdown_composer_autostart=0
+  nmap <leader>v :ComposerStart<CR>
+" }}}
+" Syntastix {{{
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
+
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list = 1
+  let g:syntastic_check_on_open = 1
+  let g:syntastic_check_on_wq = 0
+  let g:syntastic_javascript_checkers = ['eslint']
+  let g:syntastic_javascript_eslint_exe = 'npm run lint --'
+" }}}
 " Misc. {{{
   " Automaticaly close nvim if NERDTree is only thing left open
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -576,8 +600,6 @@ vnoremap <leader>p "_dP
   set smartcase     " if the search string has an upper case letter in it, the search will be case sensitive
 
   set autoread      " Automatically re-read file if a change was detected outside of vim
-
-  set number        " Enable line numbers
 
   " toggle gundo
   nnoremap <leader>u :GundoToggle<CR>

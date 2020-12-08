@@ -23,6 +23,8 @@
 " }}}
 
 " Editing {{{
+  Plug 'rakr/vim-one'
+  Plug 'mhinz/vim-startify'
   Plug 'ntpeters/vim-better-whitespace'       " Auto-fix
   Plug 'rstacruz/vim-closer'                  " Auto-close
   Plug 'easymotion/vim-easymotion'            " Improved motion
@@ -33,10 +35,15 @@
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-  Plug 'Shougo/deoplete.nvim', {
-    \ 'do': ':UpdateRemotePlugins'
-    \}
-  Plug 'christoomey/vim-tmux-navigator'       " Tmux/Neovim integration
+  if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+  endif
+  let g:deoplete#enable_at_startup = 1
+  " Plug 'christoomey/vim-tmux-navigator'       " Tmux/Neovim integration
   Plug 'Shougo/denite.nvim'                   " Fuzzy finding, buffer mgmt
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
@@ -47,6 +54,7 @@
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-commentary'
+  " Plug 'vim-syntastic/commentary'
   Plug 'whatyouhide/vim-gotham'
   Plug 'itchyny/vim-cursorword'
   Plug 'vimwiki/vimwiki'
@@ -57,6 +65,7 @@
   Plug 'junegunn/limelight.vim'                  " Lighting the way
   Plug 'sjl/gundo.vim'
   Plug 'reedes/vim-wordy'
+  Plug 'tomlion/vim-solidity'
 " }}}
 
 function! BuildComposer(info)
@@ -70,7 +79,6 @@ function! BuildComposer(info)
 endfunction
 
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
-let g:markdown_composer_autostart=1
 
 Plug 'editorconfig/editorconfig-vim'
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
@@ -87,6 +95,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
    Plug 'mxw/vim-jsx'                           " ReactJS JSX syntax highlighting
    Plug 'heavenshell/vim-jsdoc'                  " Generate JSDoc commands based on function signature
    Plug 'elzr/vim-json'
+   Plug 'vim-syntastic/syntastic'
    Plug 'othree/html5.vim'
    Plug 'cakebaker/scss-syntax.vim'
    Plug 'hail2u/vim-css3-syntax'
