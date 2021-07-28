@@ -1,6 +1,7 @@
 scriptencoding utf-8
 source ~/.config/nvim/plugins.vim
-" source ~/.config/nvim/setcolors.vim
+source ~/.config/nvim/setcolors.vim
+source~/.config/nvim/coc.vim
 
 " ============================================================================ "
 " ===                           EDITING OPTIONS                            === "
@@ -10,7 +11,7 @@ source ~/.config/nvim/plugins.vim
   let mapleader="\<Space>"
 
   " Disable line numbers
-  set nonumber
+  set number
 
   " Don't show last command
   set noshowcmd
@@ -123,11 +124,11 @@ source ~/.config/nvim/plugins.vim
 " === http://localhost:3000/Signify === "
 let g:signify_sign_delete = '-'
 
+  noremap <silent> <leader> :WhichKey '<Space>'<CR>
+
 " Snippets {{{
   " Map <C-k> as shortcut to activate snippet if available
   imap <C-k> <Plug>(neosnippet_expand_or_jump)
-  smap <C-k> <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k> <Plug>(neosnippet_expand_target)
 
   " Load custom snippets from snippets folder
   let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
@@ -231,7 +232,7 @@ let g:signify_sign_delete = '-'
   endif
 
   let g:LanguageClient_serverCommands = {
-    \ 'reason': ['/Users/foo/Projects/Reason/rls-macros/reason-language-server'],
+    \ 'reason': ['/Users/foo/.config/nvim/Reason/reason-language-server'],
     \ }
   let g:LanguageClient_serverCommands = {
     \ 'reason': ['/Users/foo/Projects/Reason/rls-macros/reason-language-server'],
@@ -361,13 +362,13 @@ let g:signify_sign_delete = '-'
 
       " Editor theme
       let g:one_allow_italics = 1
-      colorscheme one
+      colorscheme onedark
       set background=dark
 
       " let g:airline_theme = 'one'
       " Vim airline theme
       " let g:airline_theme='bubblegum'
-      " let g:airline_theme='understated'
+      let g:airline_theme='understated'
 
       " Add custom highlights in method that is executed every time a
       " colorscheme is sourced

@@ -16,7 +16,7 @@ if v:version < 700 || exists('loaded_setcolors') || &cp
 endif
 
 let loaded_setcolors = 1
-let s:mycolors = ['slate', 'nirvana', 'low', 'simple-dark', 'wombat256grf', 'miramare', 'fogbell-light', 'pencil', 'vacme', 'sonokai', 'xcodewwdc', 'github', 'anderson', 'amber']  " colorscheme names that we use to set color
+let s:mycolors = ['one', 'onedark', 'gruvbox', 'sonokai', 'papercolor-theme', 'photon.vim', 'iceberg.vim']  " colorscheme names that we use to set color
 
 " Set list of color scheme names that we will use, except
 " argument 'now' actually changes the current color scheme.
@@ -94,15 +94,15 @@ function! s:NextColor(how, echo_color)
   endif
 endfunction
 
-nnoremap <F8> :call NextColor(1)<CR>
-nnoremap <S-F8> :call NextColor(-1)<CR>
+nnoremap <F8> :call NextColor(-1)<CR>
+nnoremap <S-F8> :call NextColor(1)<CR>
 nnoremap <A-F8> :call NextColor(0)<CR>
 
 " Set color scheme according to current time of day.
 function! s:HourColor()
   let hr = str2nr(strftime('%H'))
   if hr <= 3
-    let i = 0
+    let i = u
   elseif hr <= 7
     let i = 1
   elseif hr <= 14

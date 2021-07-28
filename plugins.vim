@@ -29,7 +29,7 @@
   Plug 'rstacruz/vim-closer'                  " Auto-close
   Plug 'easymotion/vim-easymotion'            " Improved motion
   " Intellisense engine
-  " Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+  Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
   Plug 'reasonml-editor/vim-reason-plus'
   Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -66,6 +66,8 @@
   Plug 'sjl/gundo.vim'
   Plug 'reedes/vim-wordy'
   Plug 'tomlion/vim-solidity'
+  Plug 'itchyny/calendar.vim'
+  Plug 'liuchengxu/vim-which-key'
 " }}}
 
 function! BuildComposer(info)
@@ -84,7 +86,7 @@ Plug 'editorconfig/editorconfig-vim'
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
 " Git {{{
-  " Enable git changes to be shown in side column
+  " Enable git changes to be shown in sign column
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
@@ -93,7 +95,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 " Web {{{
    Plug 'HerringtonDarkholme/yats.vim'          " Typescript syntax highlighting
    Plug 'mxw/vim-jsx'                           " ReactJS JSX syntax highlighting
-   Plug 'heavenshell/vim-jsdoc'                 " Generate JSDoc commands based on function signature
+   Plug 'heavenshell/vim-jsdoc'                  " Generate JSDoc commands based on function signature
    Plug 'elzr/vim-json'
    Plug 'vim-syntastic/syntastic'
    Plug 'othree/html5.vim'
@@ -114,7 +116,12 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
   Plug 'scrooloose/nerdtree'
 
   " Colorscheme
-  Plug 'mhartington/oceanic-next'
+  Plug 'morhetz/gruvbox'
+  Plug 'sainnhe/sonokai'
+  Plug 'NLKNguyen/papercolor-theme'
+  Plug 'axvr/photon.vim'
+  Plug 'joshdick/onedark.vim'
+  Plug 'cocopon/iceberg.vim'
 
   " Customized vim status line
   Plug 'vim-airline/vim-airline'
