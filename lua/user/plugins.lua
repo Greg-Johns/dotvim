@@ -62,8 +62,9 @@ return packer.startup(function(use)
   -- Colorschemes
   -- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
   use "lunarvim/darkplus.nvim"
-  use "EdenEast/nightfox.nvim"
+  use "jnurmine/Zenburn"
   use "savq/melange"
+  use "EdenEast/nightfox.nvim"
   use "sainnhe/everforest"
 
   -- cmp plugins
@@ -73,7 +74,6 @@ return packer.startup(function(use)
   use "hrsh7th/cmp-cmdline" -- cmdline completions
   use "saadparwaiz1/cmp_luasnip" -- snippet completions
   use "hrsh7th/cmp-nvim-lsp"
-  use "hrsh7th/cmp-nvim-lua"
 
   -- snippets
   use "L3MON4D3/LuaSnip" --snippet engine
@@ -98,29 +98,7 @@ return packer.startup(function(use)
   -- Git
   use "lewis6991/gitsigns.nvim"
 
-  use {
-    "folke/zen-mode.nvim",
-          config = function()
-            require("zen-mode").setup {
-              window = {
-                backdrop = 1, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
-                width = 120, -- width of the Zen window
-                -- width = .84, -- width of the Zen window
-                height = .9, -- height of the Zen window
-                options = {
-                  signcolumn = "no", -- disable signcolumn
-                  number = false, -- disable number column
-                  -- relativenumber = false, -- disable relative numbers
-                  -- cursorline = false, -- disable cursorline
-                  cursorcolumn = true, -- disable cursor column
-                  -- foldcolumn = "0", -- disable fold column
-                  -- list = false, -- disable whitespace characters
-                },
-              }
-            }
-    end
-  }
-
+  -- VimWiki
   use {
     "vimwiki/vimwiki",
     config = function()

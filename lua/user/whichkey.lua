@@ -96,6 +96,14 @@ local mappings = {
   ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
   ["P"] = { "<cmd>Telescope projects<cr>", "Projects" },
 
+  v = {
+    name = "Vimwiki",
+    i = { "<cmd>VimwikiIndex<cr>", "Index" },
+    l = { "<cmd>VimwikiDiaryIndex<cr>", "Captains Log" },
+    d = { "<cmd>VimwikiMakeDiaryNote<cr>", "Log Entry" },
+    g = { "<cmd>VimwikiDiaryGenerateLinks<cr>", "Update Logs"},
+  },
+
   p = {
     name = "Packer",
     c = { "<cmd>PackerCompile<cr>", "Compile" },
