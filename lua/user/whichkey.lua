@@ -189,6 +189,22 @@ local mappings = {
     h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
     v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
   },
+
+  m = {
+    name = "Marks",
+    m = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "Mark" },
+    l = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "List Marks" },
+    n = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", "Next Mark" },
+    p = { "<cmd>lua require('harpoon.ui').nav+prev()<cr>", "Prev. Mark" },
+  },
+  
+  z = {
+    name = "Zen",
+    z = { "<cmd>TZAtaraxis<cr>", "Zen Ataraxis mode"},
+    f = { "<cmd>TZFocus<cr>", "Zen Focus mode"},
+    m = { "<cmd>TZMinimalist<cr>", "Zen Minimalist mode"},
+    t = { "<cmd>Twilight<cr>", "Twilight"},
+  },
 }
 
 which_key.setup(setup)

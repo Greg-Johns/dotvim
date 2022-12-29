@@ -58,14 +58,21 @@ return packer.startup(function(use)
   use "goolord/alpha-nvim"
   use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
   use "folke/which-key.nvim"
+  use "ThePrimeagen/harpoon"
 
   -- Colorschemes
   -- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
   use "lunarvim/darkplus.nvim"
-  use "jnurmine/Zenburn"
   use "savq/melange"
   use "EdenEast/nightfox.nvim"
   use "sainnhe/everforest"
+  use "lifepillar/vim-gruvbox8"
+  use "folke/tokyonight.nvim"
+
+  use "Pocco81/TrueZen.nvim"
+
+  use "nvim-lua/plenary.nvim"
+  use "preservim/vim-wordy"
 
   -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
@@ -84,6 +91,7 @@ return packer.startup(function(use)
   use "williamboman/nvim-lsp-installer" -- simple to use language server installer
   use "tamago324/nlsp-settings.nvim" -- language server settings defined in json for
   use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
+  use "ChristianChiralli/vim-solidity"
 
   -- Telescope
   use "nvim-telescope/telescope.nvim"
@@ -97,6 +105,17 @@ return packer.startup(function(use)
 
   -- Git
   use "lewis6991/gitsigns.nvim"
+
+  use {
+    "folke/twilight.nvim",
+    config = function()
+      require("twilight").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
 
   -- VimWiki
   use {
