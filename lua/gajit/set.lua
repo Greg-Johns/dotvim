@@ -15,7 +15,11 @@ vim.opt.wrap = false
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+if vim.fn.has("nvim-0.8") == 1 then
+    vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
+else
+    vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+end
 vim.opt.undofile = true
 
 vim.opt.incsearch = true
