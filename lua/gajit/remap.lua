@@ -49,6 +49,14 @@ vim.keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle fi
 vim.keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file explorer on current file" }) -- toggle file explorer on current file
 vim.keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" })                       -- refresh file explorer
 
+-- terminal
+vim.keymap.set("n", "<leader>te", "<cmd>split | terminal<CR>", { desc = "Toggle terminal" })
+
+-- folding
+vim.keymap.set("n", "zR", "zR", { desc = "Open all folds" })
+vim.keymap.set("n", "zM", "zM", { desc = "Close all folds" })
+vim.keymap.set("n", "za", "za", { desc = "Toggle fold under cursor" })
+
 -- increment/decrement numbers
 vim.keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
 vim.keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement

@@ -34,4 +34,13 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
+-- Folding settings
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldcolumn = "0"     -- Hide fold column
+vim.opt.foldtext = ""
+vim.opt.foldlevel = 99       -- Open all folds by default
+vim.opt.foldlevelstart = 99  -- Open all folds when opening a file
+vim.opt.foldenable = true
+
 vim.cmd("let g:netrw_liststyle = 3")
