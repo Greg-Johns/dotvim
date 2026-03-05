@@ -37,8 +37,15 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 -- quick fix nav
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+
+-- LSP diagnostic navigation (location list)
+vim.keymap.set("n", "<leader>k", function()
+  require("gajit.lsp_util").navigate_loclist("next")
+end, { desc = "Next diagnostic (LSP)" })
+
+vim.keymap.set("n", "<leader>j", function()
+  require("gajit.lsp_util").navigate_loclist("prev")
+end, { desc = "Previous diagnostic (LSP)" })
 
 -- replace cur word
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])

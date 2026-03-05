@@ -20,6 +20,7 @@ return {
     require("mason-lspconfig").setup({
       ensure_installed = {
         "html",
+        "vtsls",
         "graphql",
         "lua_ls",
         "rust_analyzer",
@@ -60,6 +61,12 @@ return {
                 }
               }
             }
+          }
+        end,
+        ["vtsls"] = function()
+          local lspconfig = require("lspconfig")
+          lspconfig.vtsls.setup {
+            capabilities = capabilities,
           }
         end,
       }
