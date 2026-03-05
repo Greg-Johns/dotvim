@@ -61,16 +61,7 @@ vim.keymap.set("n", "za", "za", { desc = "Toggle fold under cursor" })
 vim.keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
 vim.keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement
 
--- CellularAutomaton
--- vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
-vim.keymap.set("n", "<leader>gol", "<cmd>cellularautomaton game_of_life<cr>")
--- wk.register({
---   g = {
---     name = "games",
---     -- second key
---     r = "<cmd>CellularAutomation make_it_rain<CR>"
---   }
--- }, { prefix = "leader" });
+-- CellularAutomaton keymaps are defined in lazy/cellular-automaton.lua
 
 -- Neogit
 -- vim.keymap.set("n", "<leader><leader>", function()

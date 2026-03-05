@@ -21,16 +21,6 @@ return {
         dashboard.section.header.opts.hl = "DashboardHeader"
         dashboard.section.footer.opts.hl = "DashboardFooter"
 
-        -- local button, get_icon = require("astronvim.utils").alpha_button, require("astronvim.utils").get_icon
-        -- dashboard.section.buttons.val = {
-        --   button("LDR n  ", get_icon("FileNew", 2, true) .. "New File  "),
-        --   button("LDR f f", get_icon("Search", 2, true) .. "Find File  "),
-        --   button("LDR f o", get_icon("DefaultFile", 2, true) .. "Recents  "),
-        --   button("LDR f w", get_icon("WordFile", 2, true) .. "Find Word  "),
-        --   button("LDR f '", get_icon("Bookmarks", 2, true) .. "Bookmarks  "),
-        --   button("LDR S l", get_icon("Refresh", 2, true) .. "Last Session  "),
-        -- }
-
         dashboard.config.layout = {
           { type = "padding", val = vim.fn.max { 2, vim.fn.floor(vim.fn.winheight(0) * 0.2) } },
           dashboard.section.header,
@@ -40,6 +30,16 @@ return {
           dashboard.section.footer,
         }
         dashboard.config.opts.noautocmd = true
+        
+        -- dashboard.section.buttons.val = {
+        --   dashboard.button("f", "  Find file", ":Telescope find_files<CR>"),
+        --   dashboard.button("e", "  New file", ":ene <BAR> startinsert<CR>"),
+        --   dashboard.button("o", "  Recently opened files", ":Telescope oldfiles<CR>"),
+        --   dashboard.button("g", "  Find word", ":Telescope live_grep<CR>"),
+        --   dashboard.button("c", "  Configuration", ":e $MYVIMRC<CR>"),
+        --   dashboard.button("q", "  Quit", ":qa<CR>"),
+        -- }
+        
         return dashboard
     end,
     config = function(_, opts)
