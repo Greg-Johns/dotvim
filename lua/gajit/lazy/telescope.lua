@@ -15,6 +15,7 @@ return {
         local builtin = require('telescope.builtin')
         vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "Find files" })
         vim.keymap.set('n', '<C-f>', builtin.git_files, { desc = "Find git files" })
+        vim.keymap.set('n', '<leader>fh', builtin.oldfiles, { desc = "Recently opened files" })
         vim.keymap.set('n', '<leader>fw', function()
             local word = vim.fn.expand("<cword>")
             builtin.grep_string({ search = word })
