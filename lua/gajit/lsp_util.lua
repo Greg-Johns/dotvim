@@ -178,8 +178,9 @@ function M.show_diagnostic_popup_above()
   local col = math.floor((win_width - popup_width) / 2)
   col = math.max(0, math.min(col, win_width - popup_width))  -- Clamp to window bounds
 
-  -- Position popup above diagnostic (3 rows up, or at top of window)
-  local row = math.max(0, diag_line - 4)
+  -- Position popup above diagnostic (4 rows up, or at top of window)
+  -- Note: diag_line is 1-indexed, window coords are 0-indexed, so subtract 5 total
+  local row = math.max(0, diag_line - 5)
 
   -- Create buffer with formatted content
   local buf = vim.api.nvim_create_buf(false, true)
@@ -193,7 +194,7 @@ function M.show_diagnostic_popup_above()
     col = col,
     row = row,
     style = "minimal",
-    border = "solid",
+    border = "rounded",
   })
 
   -- Set red highlight (ErrorMsg)
