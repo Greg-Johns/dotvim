@@ -69,6 +69,7 @@ function M.navigate_loclist(direction)
   local success, err = pcall(function()
     vim.api.nvim_command(cmd)
     vim.api.nvim_command("normal! zz")  -- Center view on diagnostic
+    M.show_diagnostic_popup_above()      -- Show diagnostic details
   end)
 
   if not success then
@@ -76,23 +77,115 @@ function M.navigate_loclist(direction)
   end
 end
 
--- Show centered floating popup message for 2 seconds
-function M.show_diagnostic_popup(message)
-  local width = vim.api.nvim_win_get_width(0)
-  local height = vim.api.nvim_win_get_height(0)
+-- Helper: Convert severity number to label string
+local function get_severity_label(severity)
+  if severity == vim.diagnostic.severity.ERROR then
+    return "Error"
+  elseif severity == vim.diagnostic.severity.WARN then
+    return "Warning"
+  elseif severity == vim.diagnostic.severity.INFO then
+    return "Info"
+  elseif severity == vim.diagnostic.severity.HINT then
+    return "Hint"
+  end
+  return "Unknown"
+end
+
+-- Helper: Word wrap text to specified width
+local function word_wrap_text(text, width)
+  local lines = {}
+  local current_line = ""
+
+  for word in text:gmatch("%S+") do
+    if current_line == "" then
+      current_line = word
+    elseif #current_line + 1 + #word <= width then
+      current_line = current_line .. " " .. word
+    else
+      table.insert(lines, current_line)
+      current_line = word
+    end
+  end
+
+  if current_line ~= "" then
+    table.insert(lines, current_line)
+  end
+
+  return lines
+end
+
+-- Show diagnostic popup above the diagnostic location
+function M.show_diagnostic_popup_above()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local loclist = vim.fn.getloclist(0)
+  
+  if #loclist == 0 then
+    return
+  end
+
+  -- Get current location in list
+  local current_idx = vim.fn.getloclist(0, { idx = 0 }).idx or 1
+  local current_item = loclist[current_idx]
+
+  if not current_item then
+    return
+  end
+
+  -- Find matching diagnostic
+  local diagnostics = vim.diagnostic.get(bufnr)
+  local matching_diag = nil
+
+  for _, diag in ipairs(diagnostics) do
+    if diag.lnum == current_item.lnum - 1 and diag.col == current_item.col - 1 then
+      matching_diag = diag
+      break
+    end
+  end
+
+  if not matching_diag then
+    return
+  end
+
+  -- Format diagnostic information
+  local severity_label = get_severity_label(matching_diag.severity)
+  local source = matching_diag.source or "unknown"
+  local message = matching_diag.message or ""
+
+  -- Word wrap message to 60 characters
+  local message_lines = word_wrap_text(message, 60)
+
+  -- Build popup content
+  local popup_lines = {}
+  table.insert(popup_lines, severity_label .. " (" .. source .. ")")
+  for _, line in ipairs(message_lines) do
+    table.insert(popup_lines, line)
+  end
 
   -- Calculate popup dimensions
-  local popup_width = #message + 4  -- padding
-  local popup_height = 3             -- top border + message + bottom border
+  local popup_width = 0
+  for _, line in ipairs(popup_lines) do
+    popup_width = math.max(popup_width, #line)
+  end
+  popup_width = popup_width + 4  -- padding
 
-  -- Calculate center position
-  local col = math.floor((width - popup_width) / 2)
-  local row = math.floor((height - popup_height) / 2)
+  local popup_height = #popup_lines + 2  -- content + borders
+
+  -- Get window dimensions and current cursor position
+  local win_width = vim.api.nvim_win_get_width(0)
+  local diag_line = current_item.lnum
+
+  -- Calculate center column position
+  local col = math.floor((win_width - popup_width) / 2)
+  col = math.max(0, math.min(col, win_width - popup_width))  -- Clamp to window bounds
+
+  -- Position popup above diagnostic (3 rows up, or at top of window)
+  local row = math.max(0, diag_line - 4)
+
+  -- Create buffer with formatted content
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, popup_lines)
 
   -- Create floating window
-  local buf = vim.api.nvim_create_buf(false, true)
-  vim.api.nvim_buf_set_lines(buf, 0, -1, false, { message })
-
   local win = vim.api.nvim_open_win(buf, false, {
     relative = "win",
     width = popup_width,
