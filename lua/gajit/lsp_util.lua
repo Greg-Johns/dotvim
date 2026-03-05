@@ -60,7 +60,7 @@ function M.navigate_loclist(direction)
   local count = M.populate_loclist()
 
   if count == 0 then
-    vim.notify("No diagnostics in current buffer", vim.log.levels.INFO)
+    M.show_diagnostic_popup("No diagnostics in current buffer")
     return
   end
 
@@ -72,8 +72,46 @@ function M.navigate_loclist(direction)
   end)
 
   if not success then
-    vim.notify("Error navigating diagnostics: " .. tostring(err), vim.log.levels.WARN)
+    M.show_diagnostic_popup("Error navigating diagnostics: " .. tostring(err))
   end
+end
+
+-- Show centered floating popup message for 2 seconds
+function M.show_diagnostic_popup(message)
+  local width = vim.api.nvim_win_get_width(0)
+  local height = vim.api.nvim_win_get_height(0)
+
+  -- Calculate popup dimensions
+  local popup_width = #message + 4  -- padding
+  local popup_height = 3             -- top border + message + bottom border
+
+  -- Calculate center position
+  local col = math.floor((width - popup_width) / 2)
+  local row = math.floor((height - popup_height) / 2)
+
+  -- Create floating window
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, { message })
+
+  local win = vim.api.nvim_open_win(buf, false, {
+    relative = "win",
+    width = popup_width,
+    height = popup_height,
+    col = col,
+    row = row,
+    style = "minimal",
+    border = "solid",
+  })
+
+  -- Set red highlight (ErrorMsg)
+  vim.api.nvim_set_option_value("winhl", "Normal:ErrorMsg", { win = win })
+
+  -- Auto-close after 2 seconds
+  vim.fn.timer_start(2000, function()
+    if vim.api.nvim_win_is_valid(win) then
+      vim.api.nvim_win_close(win, true)
+    end
+  end)
 end
 
 return M
