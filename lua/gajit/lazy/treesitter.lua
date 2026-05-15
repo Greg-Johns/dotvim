@@ -13,6 +13,7 @@ return {
                 "tsx",
                 "lua",
                 "markdown",
+                "markdown_inline",
                 "rust",
                 "jsdoc",
                 "bash",

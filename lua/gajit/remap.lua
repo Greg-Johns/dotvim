@@ -33,15 +33,7 @@ vim.keymap.set("i", "jk", "<Esc>")
 vim.keymap.set("n", "Q", "<nop>")
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
--- Format with LSP (error handling for no matching server)
-vim.keymap.set("n", "<leader>gj", function()
-  local success, err = pcall(function()
-    vim.lsp.buf.format()
-  end)
-  if not success and not string.find(tostring(err), "no matching language server") then
-    vim.notify("Format error: " .. tostring(err), vim.log.levels.WARN)
-  end
-end, { desc = "Format buffer (LSP)" })
+-- Format: see lua/gajit/lazy/conform.lua (<leader>gj)
 
 -- quick fix nav
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
