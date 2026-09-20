@@ -44,3 +44,12 @@ vim.opt.foldlevelstart = 99  -- Open all folds when opening a file
 vim.opt.foldenable = true
 
 vim.cmd("let g:netrw_liststyle = 3")
+
+-- Session options (include localoptions for filetype/highlight restore)
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
+-- Disable unused providers to silence :checkhealth warnings
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_python3_provider = 0
