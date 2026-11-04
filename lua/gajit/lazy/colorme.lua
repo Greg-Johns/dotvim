@@ -2,14 +2,15 @@ function ColorMe(color)
     color = color or "rose-pine-moon"
     vim.cmd.colorscheme(color)
 
-    vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+    -- Clear only the background; nvim_set_hl replaces the whole group, so keep existing attributes
+    for _, group in ipairs({ "Normal", "NormalFloat" }) do
+        local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+        hl.bg = "none"
+        vim.api.nvim_set_hl(0, group, hl)
+    end
 end
 
 return {
-    {
-        "erikbackman/brightburn.vim",
-    },
     {
         "folke/tokyonight.nvim",
         config = function()

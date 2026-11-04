@@ -15,7 +15,7 @@ return {
         end,
         offsets = {
           {
-            filetype = "NvimTree",
+            filetype = "snacks_layout_box",
             text = "File Explorer",
             highlight = "Directory",
             separator = true,

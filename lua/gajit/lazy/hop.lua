@@ -29,9 +29,4 @@ return {
       },
     },
   },
-  {
-    "catppuccin/nvim",
-    optional = true,
-    opts = { integrations = { hop = true } },
-  },
 }

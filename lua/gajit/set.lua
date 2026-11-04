@@ -43,7 +43,9 @@ vim.opt.foldlevel = 99       -- Open all folds by default
 vim.opt.foldlevelstart = 99  -- Open all folds when opening a file
 vim.opt.foldenable = true
 
-vim.cmd("let g:netrw_liststyle = 3")
+-- Disable netrw (snacks explorer replaces it)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- Session options (include localoptions for filetype/highlight restore)
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

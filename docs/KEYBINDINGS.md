@@ -6,7 +6,6 @@ Leader key: **Space** (`<Space>`)
 
 | Keybinding | Mode | Action | Type |
 |---|---|---|---|
-| `<leader>e` | Normal | Open netrw file explorer (`:Ex`) | Custom |
 | `<leader>nh` | Normal | Clear search highlights | Custom |
 | `J` | Normal | Join next line, keep cursor position | Custom |
 | `J` | Visual | Move selected line(s) down | Custom |
@@ -22,7 +21,6 @@ Leader key: **Space** (`<Space>`)
 | `<leader>d` | Normal, Visual | Delete to void register | Custom |
 | `jk` | Insert | Escape to normal mode | Custom |
 | `Q` | Normal | Disabled (no-op) | Custom |
-| `<C-f>` | Normal | Open tmux-sessionizer in new window | Custom |
 | `<C-b>f` | Normal | LSP format buffer | Custom |
 | `<leader>s` | Normal | Substitute word under cursor (prompt) | Custom |
 | `<leader>+` | Normal | Increment number under cursor | Custom |
@@ -37,27 +35,26 @@ Leader key: **Space** (`<Space>`)
 | `<leader>k` | Normal | Next diagnostic (loclist + popup via `lsp_util`) | Custom |
 | `<leader>j` | Normal | Prev diagnostic (loclist + popup via `lsp_util`) | Custom |
 
-## File Explorer (NvimTree)
+## File Explorer (Snacks Explorer)
+
+Netrw is disabled; Snacks explorer also opens when editing a directory.
 
 | Keybinding | Mode | Action | Type |
 |---|---|---|---|
-| `<leader>ee` | Normal | Toggle NvimTree file explorer | Custom |
-| `<leader>ef` | Normal | Toggle explorer on current file | Custom |
-| `<leader>er` | Normal | Refresh file explorer | Custom |
+| `<leader>ee` | Normal | Toggle file explorer | Custom |
+| `<leader>ef` | Normal | Reveal current file in explorer | Custom |
 
-## Telescope (Fuzzy Finder)
+## Fuzzy Finder (Snacks Picker)
 
 | Keybinding | Mode | Action | Type |
 |---|---|---|---|
 | `<leader>ff` | Normal | Find files | Custom |
-| `<C-f>` | Normal | Find git files (overridden in remap.lua by tmux-sessionizer) | Custom |
+| `<C-f>` | Normal | Find git files | Custom |
 | `<leader>fh` | Normal | Recently opened files | Custom |
-| `<leader>fw` | Normal | Grep word under cursor | Custom |
+| `<leader>fw` | Normal, Visual | Grep word under cursor (or selection) | Custom |
 | `<leader>ffw` | Normal | Grep WORD under cursor | Custom |
-| `<leader>fg` | Normal | Find by grep (prompt) | Custom |
-| `<leader>ft` | Normal | Find TODO comments (via Telescope) | Custom |
-
-> Note: `<C-f>` is defined both in `remap.lua` (tmux-sessionizer) and `telescope.lua` (git_files). The last-loaded binding wins; typically `remap.lua`'s tmux binding takes effect.
+| `<leader>fg` | Normal | Live grep | Custom |
+| `<leader>ft` | Normal | Find TODO comments | Custom |
 
 ## Harpoon
 
@@ -108,7 +105,7 @@ Format-on-save is enabled with a 500ms timeout.
 | `gu` | Normal | Git diffget from left (ours) | Custom |
 | `gh` | Normal | Git diffget from right (theirs) | Custom |
 
-## Git — LazyGit
+## Git — LazyGit (Snacks)
 
 | Keybinding | Mode | Action | Type |
 |---|---|---|---|
@@ -165,15 +162,15 @@ by the `LspAttach` autocmd in `lua/gajit/lazy/lsp.lua`).
 
 | Keybinding | Mode | Action | Type |
 |---|---|---|---|
-| `<leader>tt` | Normal | Toggle Trouble window | Custom |
-| `[t` | Normal | Next Trouble item | Custom |
-| `]t` | Normal | Previous Trouble item | Custom |
+| `<leader>tt` | Normal | Toggle Trouble diagnostics | Custom |
+| `]t` | Normal | Next Trouble item | Custom |
+| `[t` | Normal | Previous Trouble item | Custom |
 
 ## TODO Comments
 
 | Keybinding | Mode | Action | Type |
 |---|---|---|---|
-| `<leader>ft` | Normal | Find TODOs (Telescope) | Custom |
+| `<leader>ft` | Normal | Find TODOs (Snacks picker) | Custom |
 | `]td` | Normal | Next TODO comment | Custom |
 | `[td` | Normal | Previous TODO comment | Custom |
 
@@ -204,34 +201,91 @@ by the `LspAttach` autocmd in `lua/gajit/lazy/lsp.lua`).
 | `<leader>zz` | Normal | Toggle zen mode (90 width, line numbers on) | Custom |
 | `<leader>zZ` | Normal | Toggle zen mode (80 width, no line numbers) | Custom |
 
-## Cellular Automaton
-
-| Keybinding | Mode | Action | Type |
-|---|---|---|---|
-| `<leader>gol` | Normal | Run Game of Life animation | Custom |
-
 ## OpenCode
 
+All OpenCode keymaps live under the `<leader>o` group.
+
 | Keybinding | Mode | Action | Type |
 |---|---|---|---|
-| `<C-a>` | Normal, Visual | Ask OpenCode about current context | Custom |
-| `<C-x>` | Normal, Visual | Select OpenCode action | Custom |
-| `go` | Normal, Visual | Operator: send range to OpenCode | Custom |
-| `goo` | Normal | Send current line to OpenCode | Custom |
+| `<leader>oa` | Normal, Visual | Ask OpenCode about `@this` | Custom |
+| `<leader>ob` | Normal | Ask OpenCode about `@buffer` | Custom |
+| `<leader>os` | Normal, Visual | Select OpenCode action | Custom |
+| `<leader>og` | Normal, Visual | Operator: send range to OpenCode | Custom |
+| `<leader>ol` | Normal | Send current line to OpenCode | Custom |
+| `<leader>oe` | Normal, Visual | Explain `@this` | Custom |
+| `<leader>of` | Normal, Visual | Fix `@diagnostics` | Custom |
+| `<leader>or` | Normal, Visual | Review `@this` | Custom |
+| `<leader>oT` | Normal, Visual | Add tests for `@this` | Custom |
+| `<leader>on` | Normal | New session | Custom |
+| `<leader>oi` | Normal | Interrupt session | Custom |
+| `<S-C-u>` | Normal | Scroll OpenCode panel up | Custom |
+| `<S-C-d>` | Normal | Scroll OpenCode panel down | Custom |
 
-## Telescope In-Window Keys (defaults)
+## Surround (mini.surround)
 
-The following are default Telescope keybindings available within Telescope windows:
+| Keybinding | Mode | Action | Type |
+|---|---|---|---|
+| `gsa` | Normal, Visual | Add surrounding | Custom |
+| `gsd` | Normal | Delete surrounding | Custom |
+| `gsr` | Normal | Replace surrounding | Custom |
+| `gsf` / `gsF` | Normal | Find surrounding (right / left) | Custom |
+| `gsh` | Normal | Highlight surrounding | Custom |
+| `gsn` | Normal | Update number of lines searched | Custom |
+
+The `gs` prefix avoids clashing with Hop's `s`.
+
+## Treesitter Textobjects
+
+| Keybinding | Mode | Action | Type |
+|---|---|---|---|
+| `af` / `if` | Operator, Visual | Around / inside function | Custom |
+| `ac` / `ic` | Operator, Visual | Around / inside class | Custom |
+| `aa` / `ia` | Operator, Visual | Around / inside argument | Custom |
+| `]f` / `[f` | Normal | Next / previous function start | Custom |
+| `]a` / `[a` | Normal | Next / previous argument | Custom |
+
+## Linting (nvim-lint)
+
+| Keybinding | Mode | Action | Type |
+|---|---|---|---|
+| `<leader>cl` | Normal | Lint current file | Custom |
+
+Linting also runs automatically on read, save, and leaving insert mode
+(`eslint_d` for JS/TS, `golangcilint` for Go).
+
+## Debugging (nvim-dap)
+
+The `<leader>D` prefix is used because `<leader>d` is the delete-to-void mapping.
+
+| Keybinding | Mode | Action | Type |
+|---|---|---|---|
+| `<leader>Db` | Normal | Toggle breakpoint | Custom |
+| `<leader>DB` | Normal | Conditional breakpoint | Custom |
+| `<leader>Dc` | Normal | Continue / start | Custom |
+| `<leader>Di` | Normal | Step into | Custom |
+| `<leader>Do` | Normal | Step over | Custom |
+| `<leader>DO` | Normal | Step out | Custom |
+| `<leader>Dr` | Normal | Run last | Custom |
+| `<leader>Dt` | Normal | Terminate | Custom |
+| `<leader>Du` | Normal | Toggle DAP UI | Custom |
+| `<leader>De` | Normal, Visual | Evaluate expression | Custom |
+
+## Snacks Picker In-Window Keys (defaults)
+
+The following are default Snacks picker keybindings available within picker windows:
 
 | Keybinding | Action |
 |---|---|
-| `<C-c>` | Close telescope |
-| `<ESC>` | Close telescope |
-| `<Tab>` | Toggle selection / down |
-| `<S-Tab>` | Toggle selection / up |
-| `<C-j>` | Move selection down |
-| `<C-k>` | Move selection up |
+| `<Esc>` | Close picker |
 | `<CR>` | Confirm selection |
+| `<Tab>` / `<S-Tab>` | Select and move down / up |
+| `<C-j>` / `<C-k>` | Move selection down / up (`<C-n>` / `<C-p>` also work) |
+| `<C-d>` / `<C-u>` | Scroll list down / up |
+| `<C-f>` / `<C-b>` | Scroll preview down / up |
+| `<C-s>` / `<C-v>` / `<C-t>` | Open in split / vertical split / tab |
+| `<C-q>` | Send results to quickfix |
+| `<A-p>` | Toggle preview |
+| `<A-h>` / `<A-i>` | Toggle hidden / ignored files |
 
 ## Notes
 

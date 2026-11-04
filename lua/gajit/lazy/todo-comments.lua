@@ -8,8 +8,8 @@ return {
     local todo = require("todo-comments")
     todo.setup({})
 
-    -- Search TODOs via Telescope
-    vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Find TODOs" })
+    -- Search TODOs via snacks picker
+    vim.keymap.set("n", "<leader>ft", function() Snacks.picker.todo_comments() end, { desc = "Find TODOs" })
 
     -- Jump between TODO comments
     vim.keymap.set("n", "]td", function()
