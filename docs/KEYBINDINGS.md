@@ -70,11 +70,11 @@ Netrw is disabled; Snacks explorer also opens when editing a directory.
 
 ## Buffers (Bufferline)
 
-| Keybinding | Mode | Action | Type |
-|---|---|---|---|
-| `<Tab>` | Normal | Next buffer | Custom |
-| `<S-Tab>` | Normal | Previous buffer | Custom |
-| `<leader>bc` | Normal | Close current buffer | Custom |
+| Keybinding   | Mode   | Action                  | Type   |
+|--------------|--------|-------------------------|--------|
+| `<Tab>`      | Normal | Next buffer             | Custom |
+| `<S-Tab>`    | Normal | Previous buffer         | Custom |
+| `<leader>bc` | Normal | Close current buffer    | Custom |
 | `<leader>bx` | Normal | Close all other buffers | Custom |
 
 ## Formatting (Conform)
@@ -198,8 +198,7 @@ by the `LspAttach` autocmd in `lua/gajit/lazy/lsp.lua`).
 
 | Keybinding | Mode | Action | Type |
 |---|---|---|---|
-| `<leader>zz` | Normal | Toggle zen mode (90 width, line numbers on) | Custom |
-| `<leader>zZ` | Normal | Toggle zen mode (80 width, no line numbers) | Custom |
+| `<leader>bz` | Normal | Toggle zen mode (90 width, line numbers on) | Custom |
 
 ## OpenCode
 
@@ -216,10 +215,6 @@ All OpenCode keymaps live under the `<leader>o` group.
 | `<leader>of` | Normal, Visual | Fix `@diagnostics` | Custom |
 | `<leader>or` | Normal, Visual | Review `@this` | Custom |
 | `<leader>oT` | Normal, Visual | Add tests for `@this` | Custom |
-| `<leader>on` | Normal | New session | Custom |
-| `<leader>oi` | Normal | Interrupt session | Custom |
-| `<S-C-u>` | Normal | Scroll OpenCode panel up | Custom |
-| `<S-C-d>` | Normal | Scroll OpenCode panel down | Custom |
 
 ## Surround (mini.surround)
 

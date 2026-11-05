@@ -4,7 +4,7 @@ My personal Neovim configuration honed through many hours of noodeling.
 
 ## Prerequisites
 
-- Neovim >= 0.8.0
+- Neovim >= 0.11
 - Git
 - A Nerd Font (for icons)
 
@@ -25,11 +25,20 @@ nvim
 #### Leader Key
 The leader key is set to ```<Space>```.
 
-#### File Explorer (NvimTree)
-  * ```<leader>e``` - Toggle file explorer
+#### File Explorer (Snacks)
   * ```<leader>ee``` - Toggle file explorer
-  * ```<leader>ef``` - Toggle file explorer on current file
-  * ```<leader>er``` - Refresh file explorer
+  * ```<leader>ef``` - Reveal current file in explorer
+
+#### Find (Snacks Picker)
+  * ```<leader>ff``` - Find files
+  * ```<C-f>``` - Find git files
+  * ```<leader>fg``` - Live grep
+  * ```<leader>fh``` - Recent files
+
+#### OpenCode
+  * ```<leader>oa``` - Ask OpenCode about the selection
+  * ```<leader>os``` - Select an OpenCode action
+  * See `docs/KEYBINDINGS.md` for the full `<leader>o` group
 
 #### General Editing
   * ```jk``` (in insert mode) - Quick escape to normal mode
@@ -60,14 +69,15 @@ Search and Replace
 Numbers
   * ```<leader>+``` - Increment number
   * ```<leader>-``` - Decrement number
-Fun Extras
-  * ```<leader>gol``` - Game of Life animation (CellularAutomaton)
 
 ## Plugins
 Based on the keybindings, this config uses:
-  * NvimTree - File explorer
-  * LSP - Language Server Protocol support
-  * CellularAutomaton - Fun animations
+  * Snacks - Picker, explorer, dashboard, lazygit
+  * LSP - Native `vim.lsp.config` with Mason
+  * nvim-dap - Debugging (Go, Rust, JS/TS)
+  * nvim-lint, conform - Linting and formatting
+  * mini.surround, treesitter-textobjects - Editing
+  * OpenCode - AI assistant integration
 
 ## Customization
-Edit ```~/.config/nvim/lua/gajit/remap.lua``` to modify keybindings.
+Edit ```~/.config/nvim/lua/gajit/remap.lua``` to modify keybindings. See `docs/KEYBINDINGS.md` for the full reference.

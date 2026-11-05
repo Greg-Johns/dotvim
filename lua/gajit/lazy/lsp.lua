@@ -1,7 +1,8 @@
 return {
   "neovim/nvim-lspconfig",
+  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    "williamboman/mason.nvim",
+    { "williamboman/mason.nvim", cmd = "Mason" },
     "williamboman/mason-lspconfig.nvim",
     "hrsh7th/cmp-nvim-lsp",
     "j-hui/fidget.nvim",
@@ -9,20 +10,46 @@ return {
 
   config = function()
     local cmp_lsp = require("cmp_nvim_lsp")
-    local capabilities = vim.tbl_deep_extend(
-        "force",
-        {},
-        vim.lsp.protocol.make_client_capabilities(),
-        cmp_lsp.default_capabilities())
+    local capabilities =
+      vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
 
     require("fidget").setup({
       notification = {
         window = {
-          avoid = { "NvimTree" },
+          avoid = { "snacks_layout_box" },
         },
       },
     })
+
+    -- Server settings (native vim.lsp.config, Neovim 0.11+)
+    vim.lsp.config("*", { capabilities = capabilities })
+
+    vim.lsp.config("lua_ls", {
+      settings = {
+        Lua = {
+          runtime = { version = "Lua 5.1" },
+          diagnostics = {
+            globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
+          },
+        },
+      },
+    })
+
+    vim.lsp.config("zls", {
+      root_markers = { ".git", "build.zig", "zls.json" },
+      settings = {
+        zls = {
+          enable_inlay_hints = true,
+          enable_snippets = true,
+          warn_style = true,
+        },
+      },
+    })
+    vim.g.zig_fmt_parse_errors = 0
+    vim.g.zig_fmt_autosave = 0
+
     require("mason").setup()
+    -- Installed servers are enabled automatically (automatic_enable defaults to true)
     require("mason-lspconfig").setup({
       ensure_installed = {
         "html",
@@ -32,51 +59,12 @@ return {
         "rust_analyzer",
         "gopls",
       },
-
-      handlers = {
-        function(server_name)         -- default handler (optional)
-          require("lspconfig")[server_name].setup {
-            capabilities = capabilities
-          }
-        end,
-
-        zls = function()
-          local lspconfig = require("lspconfig")
-          lspconfig.zls.setup({
-            root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
-            settings = {
-              zls = {
-                enable_inlay_hints = true,
-                enable_snippets = true,
-                warn_style = true,
-              },
-            },
-          })
-          vim.g.zig_fmt_parse_errors = 0
-          vim.g.zig_fmt_autosave = 0
-        end,
-        ["lua_ls"] = function()
-          local lspconfig = require("lspconfig")
-          lspconfig.lua_ls.setup {
-            capabilities = capabilities,
-            settings = {
-              Lua = {
-                runtime = { version = "Lua 5.1" },
-                diagnostics = {
-                  globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
-                }
-              }
-            }
-          }
-        end,
-        ["vtsls"] = function()
-          local lspconfig = require("lspconfig")
-          lspconfig.vtsls.setup {
-            capabilities = capabilities,
-          }
-        end,
-      }
     })
+
+    -- zls is not managed by mason here, so enable it when it is on PATH
+    if vim.fn.executable("zls") == 1 then
+      vim.lsp.enable("zls")
+    end
 
     vim.diagnostic.config({
       -- update_in_insert = true,
@@ -138,5 +126,5 @@ return {
         end, "LSP: List workspace folders")
       end,
     })
-  end
+  end,
 }

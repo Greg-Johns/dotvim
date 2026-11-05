@@ -19,6 +19,8 @@ return {
       end,
     })
 
-    vim.keymap.set("n", "<leader>cl", function() lint.try_lint() end, { desc = "Lint current file" })
+    vim.keymap.set("n", "<leader>cl", function()
+      lint.try_lint()
+    end, { desc = "Lint current file" })
   end,
 }

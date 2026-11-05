@@ -9,7 +9,9 @@ return {
     todo.setup({})
 
     -- Search TODOs via snacks picker
-    vim.keymap.set("n", "<leader>ft", function() Snacks.picker.todo_comments() end, { desc = "Find TODOs" })
+    vim.keymap.set("n", "<leader>ft", function()
+      Snacks.picker.todo_comments()
+    end, { desc = "Find TODOs" })
 
     -- Jump between TODO comments
     vim.keymap.set("n", "]td", function()

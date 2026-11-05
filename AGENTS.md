@@ -74,11 +74,12 @@ return {
 }
 
 -- Require plugin modules within config function
-local builtin = require('telescope.builtin')
+local snacks = require('snacks')
 ```
 
 #### Formatting & Indentation
 - Use 2 spaces for indentation (consistent with `set.lua` tabstop=2)
+- Format Lua with `stylua lua after` (config in `stylua.toml`)
 - No trailing whitespace
 - Single line statements preferred for simple options
 - Multi-line for complex configurations
@@ -135,7 +136,7 @@ vim.g.variable = value            -- Global variables
 - Comment above the code block it describes
 - Group related keybindings with section headers:
   ```lua
-  -- File Explorer (NvimTree)
+  -- File Explorer (Snacks)
   vim.keymap.set(...)
 
   -- General Editing
@@ -159,7 +160,7 @@ When adding new plugins:
 5. Do NOT add to `init.lua` or root `lazy/init.lua` - lazy.nvim auto-discovers specs in `lua/gajit/lazy/`
 
 ## Version Requirements
-- Neovim >= 0.8.0
+- Neovim >= 0.11 (native `vim.lsp.config` / `vim.lsp.enable`)
 - Lua 5.1+ (Neovim built-in)
 
 ## Key Architectural Patterns

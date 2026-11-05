@@ -16,9 +16,9 @@ vim.opt.wrap = false
 vim.opt.swapfile = false
 vim.opt.backup = false
 if vim.fn.has("nvim-0.8") == 1 then
-    vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
+  vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
 else
-    vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+  vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 end
 vim.opt.undofile = true
 
@@ -35,12 +35,10 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 
 -- Folding settings
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldcolumn = "0"     -- Hide fold column
-vim.opt.foldtext = ""
-vim.opt.foldlevel = 99       -- Open all folds by default
-vim.opt.foldlevelstart = 99  -- Open all folds when opening a file
+-- (foldmethod is managed by nvim-ufo)
+vim.opt.foldcolumn = "0" -- Hide fold column
+vim.opt.foldlevel = 99 -- Open all folds by default
+vim.opt.foldlevelstart = 99 -- Open all folds when opening a file
 vim.opt.foldenable = true
 
 -- Disable netrw (snacks explorer replaces it)

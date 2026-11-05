@@ -4,9 +4,9 @@
 local M = {}
 
 -- Define popup highlight colors
-vim.api.nvim_set_hl(0, "ErrorPopup", { fg = "#ff0000", bg = "NONE" })      -- Red
-vim.api.nvim_set_hl(0, "WarningPopup", { fg = "#ffff00", bg = "NONE" })    -- Yellow
-vim.api.nvim_set_hl(0, "InfoPopup", { fg = "#ffffff", bg = "NONE" })       -- White
+vim.api.nvim_set_hl(0, "ErrorPopup", { fg = "#ff0000", bg = "NONE" }) -- Red
+vim.api.nvim_set_hl(0, "WarningPopup", { fg = "#ffff00", bg = "NONE" }) -- Yellow
+vim.api.nvim_set_hl(0, "InfoPopup", { fg = "#ffffff", bg = "NONE" }) -- White
 
 -- Helper: Convert diagnostic severity to qflist type
 local function get_severity_type(severity)
@@ -26,8 +26,8 @@ end
 local function diagnostic_to_qfitem(diag, bufnr)
   return {
     bufnr = bufnr,
-    lnum = diag.lnum + 1,           -- Convert 0-indexed to 1-indexed
-    col = diag.col + 1,             -- Convert 0-indexed to 1-indexed
+    lnum = diag.lnum + 1, -- Convert 0-indexed to 1-indexed
+    col = diag.col + 1, -- Convert 0-indexed to 1-indexed
     type = get_severity_type(diag.severity),
     text = diag.message,
   }
@@ -73,8 +73,8 @@ function M.navigate_loclist(direction)
   local cmd = direction == "next" and "lnext" or "lprev"
   local success, err = pcall(function()
     vim.api.nvim_command(cmd)
-    vim.api.nvim_command("normal! zz")  -- Center view on diagnostic
-    M.show_diagnostic_popup_above()      -- Show diagnostic details
+    vim.api.nvim_command("normal! zz") -- Center view on diagnostic
+    M.show_diagnostic_popup_above() -- Show diagnostic details
   end)
 
   if not success then
@@ -137,9 +137,9 @@ function M.show_notification_popup(message, highlight_group)
   for _, line in ipairs(message_lines) do
     popup_width = math.max(popup_width, #line)
   end
-  popup_width = popup_width + 4  -- padding
+  popup_width = popup_width + 4 -- padding
 
-  local popup_height = #message_lines + 2  -- content + borders
+  local popup_height = #message_lines + 2 -- content + borders
 
   -- Calculate center position
   local col = math.floor((width - popup_width) / 2)
@@ -187,7 +187,7 @@ end
 function M.show_diagnostic_popup_above()
   local bufnr = vim.api.nvim_get_current_buf()
   local loclist = vim.fn.getloclist(0)
-  
+
   if #loclist == 0 then
     return
   end
@@ -235,9 +235,9 @@ function M.show_diagnostic_popup_above()
   for _, line in ipairs(popup_lines) do
     popup_width = math.max(popup_width, #line)
   end
-  popup_width = popup_width + 4  -- padding
+  popup_width = popup_width + 4 -- padding
 
-  local popup_height = #popup_lines + 2  -- content + borders
+  local popup_height = #popup_lines + 2 -- content + borders
 
   -- Get window dimensions
   local win_width = vim.api.nvim_win_get_width(0)
@@ -246,14 +246,14 @@ function M.show_diagnostic_popup_above()
 
   -- Calculate center column position
   local col = math.floor((win_width - popup_width) / 2)
-  col = math.max(0, math.min(col, win_width - popup_width))  -- Clamp to window bounds
+  col = math.max(0, math.min(col, win_width - popup_width)) -- Clamp to window bounds
 
   -- Intelligently position popup (above by default, below if needed)
-  local row = math.max(0, current_row - 5)  -- Try to position 5 rows above cursor
+  local row = math.max(0, current_row - 5) -- Try to position 5 rows above cursor
 
   -- If popup would go off top of screen, position below instead
   if current_row - 5 < 0 then
-    row = current_row + 2  -- Position 2 rows below cursor
+    row = current_row + 2 -- Position 2 rows below cursor
   end
 
   -- If popup would go off bottom of screen, adjust to fit
