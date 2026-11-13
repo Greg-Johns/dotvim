@@ -1,3 +1,13 @@
+local function is_process_running(proc_name)
+  local handle = io.popen("pgrep -x " .. vim.fn.shellescape(proc_name) .. " >/dev/null 2>&1 && echo 1 || echo 0")
+  if not handle then
+    return false
+  end
+  local result = handle:read("*a")
+  handle:close()
+  return vim.trim(result) == "1"
+end
+
 return {
   "folke/snacks.nvim",
   priority = 1000,
@@ -141,6 +151,11 @@ return {
         --     ███████████ ███    ███ █████████ █████ █████ ████ █████
         --    ██████  █████████████████████ ████ █████ █████ ████ ██████
         -- ]],
+        header = [[
+  █░░█ █▀▀ █░  █░  █▀█    █░ ░█ █▀█ █▀█ █░  █▀▄
+  █▀▀█ █▀▀ █░░ █░░ █░█    █░█░█ █░█ █▀▄ █░░ █░█
+  ▀░░▀ ▀▀▀ ▀▀▀ ▀▀▀ ▀▀▀    ▀▀░▀▀ ▀▀▀ ▀░▀ ▀▀▀ ▀▀░
+]],
       },
       sections = {
         { section = "header" },
@@ -149,7 +164,76 @@ return {
           indent = 1,
           padding = 1,
         },
+        {
+          title = "AI Harness",
+          padding = 1,
+          {
+            icon = "󰚩 ",
+            desc = "Launch OpenCode Session",
+            key = "o",
+            action = function()
+              local cwd = vim.fn.getcwd()
+              local cmd = string.format("opencode --dir %s", vim.fn.shellescape(cwd))
+
+              Snacks.terminal.open(cmd, {
+                win = {
+                  position = "right", -- Opens as a vertical side split
+                  width = 0.45, -- Takes 45% of screen width
+                },
+                interactive = true,
+                auto_close = false, -- Keeps window open if process exits
+              })
+            end,
+          },
+        },
+        -- Dynamic Daemon / Harness Status Widget
+        {
+          title = "Local Services",
+          padding = 1,
+          function()
+            local running = is_process_running("opencode")
+
+            local status_icon = running and " " or " "
+            local status_text = running and "Active" or "Stopped"
+            local status_hl = running and "DiagnosticOk" or "DiagnosticWarn"
+
+            return {
+              {
+                text = {
+                  { "  OpenCode Daemon: ", hl = "SnacksDashboardDesc" },
+                  { status_icon .. status_text, hl = status_hl },
+                },
+              },
+              {
+                icon = running and "󰒲 " or " ",
+                desc = running and "Attach / Focus Session" or "Start OpenCode",
+                key = "o",
+                action = function()
+                  if running then
+                    -- Attach or focus existing terminal
+                    Snacks.terminal.open("opencode attach", {
+                      win = { position = "right", width = 0.45 },
+                    })
+                  else
+                    -- Spawn daemon / interactive process
+                    Snacks.terminal.open("opencode", {
+                      win = { position = "right", width = 0.45 },
+                    })
+                  end
+                end,
+              },
+            }
+          end,
+        },
         { section = "recent_files", icon = " ", title = "Recent Files", indent = 3, padding = 2 },
+        {
+          section = "terminal",
+          cmd = "git status -sb 2>/dev/null || echo 'Not a git repo'",
+          height = 5,
+          padding = 1,
+          ttl = 5 * 60, -- Cache for 5 minutes
+          indent = 2,
+        },
         { section = "startup" },
       },
     },
